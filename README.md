@@ -1,4 +1,4 @@
-# Python-tools
+#Software Engineering Project
 We will collaborate on this platform to contibute to the project
 
 Project Name: Towson University Student Housing (TUSH) Platform(Web)
