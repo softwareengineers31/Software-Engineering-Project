@@ -9,4 +9,4 @@ Member Names
 3. Jaya Peda Vignesh Reddy Duggempudi
 4. Daniel Samura
 5. Andrew Taormino
-6. Calvin Venebal
+6. Calvin Venable
