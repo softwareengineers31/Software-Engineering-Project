@@ -1,0 +1,1 @@
+UPDATE `tushplatform`.`Students` SET `RoomateSeeking` = 1;

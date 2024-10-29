@@ -1,12 +1,12 @@
 INSERT INTO Students (
     First_Name, Last_Name, PhoneNumber, UniversityID, RoomateSeeking, 
     Cleaning_Frequency, Daily_Schedule, Guest, Noise_Level, Sleeping_Habits, 
-    Cooking_Eating_Habits, Substance_Use, Rent_Budget, Expense_Sharing, 
-    Conflict_Resolution_Style, Pets, Date_of_Birth, Street, City, State, Zip, 
-    Employed, Employer_Name, Job_Title, Employment_Duration, Monthly_Income, 
-    Employer_Contact, Employer_Phone, Employer_Email, Recent_Paystubs, 
-    Employment_Verification_Letter, Previous_Landlord_Name, Previous_Landlord_Phone, 
-    Previous_Landlord_Email, Is_Driver, Is_Rider
+    Cooking_Eating_Habits, Substance_Use, RentBudget, ExpenseSharing, 
+    ConflictResolutionStyle, Pets, DateofBirth, Street, City, State, Zip, 
+    Employed, EmployerName, JobTitle, EmploymentDuration, MonthlyIncome, 
+    EmployerContact, EmployerPhone, EmployerEmail, RecentPaystubs, 
+    EmploymentVerificationLetter, PreviousLandlordName, PreviousLandlordPhone, 
+    PreviousLandlordEmail, IsDriver, IsRider
 )
 VALUES
 -- Homer Simpson (The Simpsons)
@@ -144,7 +144,7 @@ VALUES
  'Jimbo Kern', '555-6666', 'jimbo@southpark.com', 'Yes', 'No'),
 
 -- Tina Belcher (Bob’s Burgers)
-('Tina', 'Belcher', '555-1112', 'BEL101', 1, 
+('Tina', 'Belcher', '555-1112', 'BEL103', 1, 
  'Weekly', 'Afternoon', 'Rare', 'Quiet', 'Sleeps early', 
  'Pescatarian', 'No', '800', 'Negotiable', 
  'Avoidant', 'No pets', '2004-02-14', 'Ocean Avenue', 'Seymour’s Bay', 'NJ', '07001', 
