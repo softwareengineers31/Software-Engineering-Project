@@ -1,0 +1,44 @@
+Date 10/23/24 - Deaira Carrington 
+The chosen ML Method for Roomate Matching is K Nearest Neighbors.
+The overall objective of the K Nearest Neighbors Model is to compare the Lifestyle preferences of each user against others in the database and produce a compatability score for each match. 
+
+-------------------- Data Set Overview -------------------
+The following information will be queried from the Students Table on tushplatform MySQL database
+<---Identifying Information--->
+1.StudentID
+2.First Name
+3.Last Name
+<---Input Variables--->
+1.Cleaning Frequency - Ordinal
+2.Sleep Schedule - Ordinal
+3.Guest - Ordinal 
+4.Noise Level - Ordinal
+5.Sleeping Habits - Ordinal 
+6.Cooking/Eating Habits - Ordinal
+7.Substance Use - Ordinal 
+8.Rent Budget - Quantitative
+9.Expense Sharing - Ordinal 
+10.Conflict Resolution Style - Ordinal
+11.Pets-Ordinal
+12.DateOfBirth-Quantitative
+
+-------------------- Step 1: Pulling data into Python from MySQL --------------------
+1.Setup the DB Config information
+2.Pull the data from the DB into the Python Script 
+
+
+-------------------- Step 2: Rank the Ordinal Values --------------------
+The following Rankings are listed below for each codeset of each variable.
+students['Cleaning_Frequency'].map({'Never':0,'Monthly':1,'Bi-Weekly':2,'Weekly':3,'Daily':4})
+students['Sleep_Schedule'].map({'Early Riser':0,'Night Owl':1})
+students['Guest'].map({'Few':0,'None':1,'Many':2})
+students['Noise_Level'].map({'Quiet':0,'Moderate':1,'Loud':2})
+students['Sleeping_Habits'].map({'Light Sleeper':0,'Heavy Sleeper':1})
+students['Cooking_Eating_Habits'].map({'Vegan':0,'Vegetarian':1,'Pescitarian':2,'Flexitarian':3,'Omnivore':4,'Carnivore':5})
+students['Substance_Use'].map({'No':0,'Tobacco':1,'Alcohol':2,'Marijuana':3})
+students['ExpenseSharing'].map({'Prefers other to pay':0,'Wont Share':1,'Split eqaually':2})
+students['ConflictResolutionStyle'].map({'Calm discussion':0,'Negotiation':1,'Avoidant':2,'Aggressive':3})
+students['Pets'].map({'No':0,'Fish':1,'Reptile':2,'Amphibian':3,'Dog':3,'Cat':3})
+
+------------------ Step 3: Choosing the KNN Formula-------------------
+
