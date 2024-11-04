@@ -70,7 +70,7 @@ WNinput = WeightValuesdf.iloc[0] * normalizedinputdf
 #print("normalizedinputdf shape:", normalizedinputdf.shape)
 
 knn.fit(WNinput)
-currentstudent=0
+currentstudent=1
 distances, indices = knn.kneighbors([WNinput.iloc[currentstudent]])
 maxd=distances.max()
 mind=distances.min()
