@@ -144,7 +144,7 @@ app.delete("/:id", async(req, res) =>{
 //account/roommate section
 
 //create account
-app.post("/createAccount", async (req,res) => {
+app.post("/signup", async (req,res) => {
     try
     {
         var username = req.query.username;
@@ -154,6 +154,23 @@ app.post("/createAccount", async (req,res) => {
         var newAccount = await createPool.query("INSERT INTO Users VALUES (?)", [username, password, email, phone]);
 
         res.json("New user was created.");
+    }
+    catch(err)
+    {
+        console.error(err.message);
+    }
+});
+
+//login to account
+app.get("/login", async (req,res) => {
+    try
+    {
+        var username = req.query.username;
+        var password = req.query.password;
+        var newAccount = await createPool.query("SELECT * FROM Users WHERE ? in (username, password)", [username, password]);
+
+        //look into continued login/token
+        res.json("User was logged in.");
     }
     catch(err)
     {
