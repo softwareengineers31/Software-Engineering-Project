@@ -151,7 +151,7 @@ app.post("/createAccount", async (req,res) => {
         var password = req.query.password;
         var email = req.query.email;
         var phone = req.query.phone;
-        var newListing = await createPool.query("INSERT INTO Users VALUES (?)", [username, password, email, phone]);
+        var newAccount = await createPool.query("INSERT INTO Users VALUES (?)", [username, password, email, phone]);
 
         res.json("New user was created.");
     }
