@@ -3,6 +3,7 @@ import express from 'express';
 
 var app = express();
 var port = 3000;
+
 app.use(express.json());
 //Establish database connection
 const tush=mysql.createPool(
@@ -165,4 +166,8 @@ app.delete("/account/:id", async(req, res) =>{
     {
         console.error(err.message);
     }
+});
+
+app.listen(3000, () => {
+    console.log("Server is running on port 3000.");
 });
