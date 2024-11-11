@@ -1,8 +1,9 @@
 import mysql from 'mysql2';
 import express from 'express';
+import cors from 'cors';
 
 var app = express();
-var port = 3000;
+app.use(cors());
 
 app.use(express.json());
 //Establish database connection
@@ -28,8 +29,24 @@ console.log(result)
 app.post("/createListing", async (req,res) => {
     try
     {
-        var {description} = req.body;
-        var newListing = await createPool.query("INSERT INTO Listings (description) VALUES (?)", [description]);
+        var city = req.query.city;
+        var street = req.query.street;
+        var zip = req.query.zip;
+        var propertyType = req.query.propertyType;
+        var squareFoot = req.query.squareFoot;
+        var beds = req.query.beds;
+        var baths = req.query.baths;
+        var rent = req.query.rent;
+        var utilities = req.query.utilities;
+        var maintFees = req.query.maintFees;
+        var terms = req.query.terms;
+        var availability = req.query.availability;
+        var parking = req.query.parking;
+        var laundry = req.query.laundry;
+        var internet = req.query.internet;
+
+        var newListing = await createPool.query("INSERT INTO Listings VALUES (?)", 
+            [city, street, zip, propertyType, squareFoot, beds, baths, rent, utilities, maintFees, terms, availability, parking, laundry, internet]);
 
         res.json("New listing was created.");
     }
@@ -40,7 +57,7 @@ app.post("/createListing", async (req,res) => {
 });
 
 //get all listings
-app.get("/Listings", async(req, res) =>{
+app.get("/", async(req, res) =>{
     try
     {
         var Listings = await createPool.query("SELECT * FROM Listings");
@@ -53,7 +70,7 @@ app.get("/Listings", async(req, res) =>{
 });
 
 //get single listing
-app.get("/Listings/:id", async(req, res) =>{
+app.get("/:id", async(req, res) =>{
     try
     {
         var {id} = req.params;
@@ -66,13 +83,42 @@ app.get("/Listings/:id", async(req, res) =>{
     }
 });
 
-//update listing
-app.put("/Listings/:id", async(req, res) =>{
+//get Listings based on search value
+app.get("/:value", async(req, res) =>{
     try
     {
-        var {id} = req.params;
-        var {description} = req.body;
-        var updateListing = await createPool.query("UPDATE Listings SET description = ? WHERE idListings = ?", [description, id]);
+        var {value} = req.params;
+        var Listing = await createPool.query("SELECT * FROM Listings WHERE ? in (city, street, zip, propertyType, squareFoot, beds, baths, rent, utilities, maintFees, terms, availability, parking, laundry, internet)", [value]);
+        res.json(Listing[0]);
+    }
+    catch(err)
+    {
+        console.error(err.message);
+    }
+});
+
+//update listing
+app.put("/:id", async(req, res) =>{
+    try
+    {
+        var city = req.query.city;
+        var street = req.query.street;
+        var zip = req.query.zip;
+        var propertyType = req.query.propertyType;
+        var squareFoot = req.query.squareFoot;
+        var beds = req.query.beds;
+        var baths = req.query.baths;
+        var rent = req.query.rent;
+        var utilities = req.query.utilities;
+        var maintFees = req.query.maintFees;
+        var terms = req.query.terms;
+        var availability = req.query.availability;
+        var parking = req.query.parking;
+        var laundry = req.query.laundry;
+        var internet = req.query.internet;
+
+        var newListing = await createPool.query("INSERT INTO Listings VALUES (?)", 
+            [city, street, zip, propertyType, squareFoot, beds, baths, rent, utilities, maintFees, terms, availability, parking, laundry, internet]);
         res.json("Listing was updated.");
     }
     catch(err)
@@ -82,7 +128,7 @@ app.put("/Listings/:id", async(req, res) =>{
 });
 
 //delete listing
-app.delete("/Listings/:id", async(req, res) =>{
+app.delete("/:id", async(req, res) =>{
     try
     {
         var {id} = req.params;
@@ -101,8 +147,11 @@ app.delete("/Listings/:id", async(req, res) =>{
 app.post("/createAccount", async (req,res) => {
     try
     {
-        var {description} = req.body;
-        var newListing = await createPool.query("INSERT INTO Users (description) VALUES (?)", [description]);
+        var username = req.query.username;
+        var password = req.query.password;
+        var email = req.query.email;
+        var phone = req.query.phone;
+        var newListing = await createPool.query("INSERT INTO Users VALUES (?)", [username, password, email, phone]);
 
         res.json("New user was created.");
     }
