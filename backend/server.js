@@ -7,7 +7,7 @@ app.use(cors());
 
 app.use(express.json());
 //Establish database connection
-const tush=mysql.createPool(
+const createPool=mysql.createPool(
     {
         //Endpoint from Amazon RDS
         host:'tushplatform.cx0goikkws0s.us-east-2.rds.amazonaws.com',
@@ -20,7 +20,7 @@ const tush=mysql.createPool(
     }
 ).promise()
 
-const result = await tush.query("SELECT * FROM Students")
+const result = await createPool.query("SELECT * FROM Students")
 console.log(result)
 
 //Listings section
@@ -154,6 +154,7 @@ app.post("/signup", async (req,res) => {
         var newAccount = await createPool.query("INSERT INTO Users VALUES (?)", [username, password, email, phone]);
 
         res.json("New user was created.");
+        console.log("Account created.")
     }
     catch(err)
     {
@@ -162,7 +163,7 @@ app.post("/signup", async (req,res) => {
 });
 
 //login to account
-app.get("/login", async (req,res) => {
+app.get("/loginpage", async (req,res) => {
     try
     {
         var username = req.query.username;
