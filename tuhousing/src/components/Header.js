@@ -16,7 +16,7 @@ const Header = () => {
                 <header className="flex items-center justify-between p-4 bg-white shadow-md">
                     {/* Left Logo and Text */}
                     <div className="flex items-center space-x-2">
-                        <img src='/public/logo.png' alt="Logo"
+                        <img src='logo.png' alt="Logo"
                              className="h-10 w-10 rounded-full border border-gray-400"/>
                         <span className="text-gray-800 font-semibold text-xl">TUSH Web Portal</span>
                     </div>
