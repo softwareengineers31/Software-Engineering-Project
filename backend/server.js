@@ -4,8 +4,14 @@ import cors from 'cors';
 
 var app = express();
 app.use(cors());
-
 app.use(express.json());
+
+var port = 5000;
+
+app.listen(port, () => {
+    console.log('Server is running on port 5000.');
+});
+
 //Establish database connection
 const createPool=mysql.createPool(
     {
@@ -20,8 +26,8 @@ const createPool=mysql.createPool(
     }
 ).promise()
 
-const result = await createPool.query("SELECT * FROM Students")
-console.log(result)
+//const result = await createPool.query("SELECT * FROM Students")
+//console.log(result)
 
 //Listings section
 
@@ -49,6 +55,7 @@ app.post("/createListing", async (req,res) => {
             [city, street, zip, propertyType, squareFoot, beds, baths, rent, utilities, maintFees, terms, availability, parking, laundry, internet]);
 
         res.json("New listing was created.");
+        console.log("New listing was created.");
     }
     catch(err)
     {
@@ -153,7 +160,7 @@ app.post("/signup", async (req,res) => {
         var phone = req.query.phone;
         var newAccount = await createPool.query("INSERT INTO Users VALUES (?)", [username, password, email, phone]);
 
-        res.json("New user was created.");
+        res.json(newAccount);
         console.log("Account created.")
     }
     catch(err)
@@ -172,6 +179,7 @@ app.get("/loginpage", async (req,res) => {
 
         //look into continued login/token
         res.json("User was logged in.");
+        console.log("User logged in.");
     }
     catch(err)
     {
@@ -233,8 +241,4 @@ app.delete("/account/:id", async(req, res) =>{
     {
         console.error(err.message);
     }
-});
-
-app.listen(3000, () => {
-    console.log("Server is running on port 3000.");
 });
