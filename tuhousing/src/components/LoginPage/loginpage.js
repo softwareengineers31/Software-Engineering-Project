@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const LoginForm = () => {
     const [credentials, setCredentials] = useState({
@@ -24,26 +25,31 @@ const LoginForm = () => {
         if (credentials.username && credentials.password) {
 
             const userRole = localStorage.getItem('role');
+            localStorage.setItem('username', credentials.username)
 
-            if (!userRole) {
-                alert('Role not found. Please sign up first.');
-                return;
-            }
-
-
-            switch (userRole) {
-                case 'Admin':
-                    navigate('/admin-dashboard');
-                    break;
-                case 'Student':
-                    navigate('/student-dashboard');
-                    break;
-                case 'Landlord':
-                    navigate('/landlord-dashboard');
-                    break;
-                default:
-                    alert('Unknown role');
-            }
+            axios.post('http://localhost:3000/login', credentials)
+            .then(res => {
+                console.log(res);
+                switch (userRole) {
+                    case 'Admin':
+                        navigate('/admin-dashboard');
+                        break;
+                    case 'Student':
+                        navigate('/student-dashboard');
+                        break;
+                    case 'Landlord':
+                        navigate('/landlord-dashboard');
+                        break;
+                    default:
+                        alert('Unknown role');
+                        navigate('/admin-dashboard');
+                        break;
+                }
+            })
+            .catch(err => {
+                console.log(err);
+                alert('Unable to log in!');
+            });
         } else {
 
             alert('Please fill in both username and password');

@@ -18,6 +18,8 @@ const SignupForm = () => {
         proofOfOwnership: [],
         bankDetails: '',
         housingRegistration: '',
+        studentId: '',
+        landlordId: ''
     });
 
     const navigate = useNavigate();
@@ -36,7 +38,7 @@ const SignupForm = () => {
 
         localStorage.setItem('role', role);
 
-        axios.post('http://localhost:3000/signup', formData)
+        axios.post('http://localhost:3000/signup', formData, role)
         .then(res => {
             console.log(res);
             alert('Account created successfully. Please log in.');

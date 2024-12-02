@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 const HouseRegistrationModal = () => {
     const [formData, setFormData] = useState({
@@ -54,7 +55,16 @@ const HouseRegistrationModal = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(formData);
+        var username = localStorage.getItem('username');
         // Here you would typically handle the submission (e.g., send to an API)
+        axios.post('http://localhost:3000/login', formData, username)
+            .then(res => {
+                console.log(res);
+            })
+            .catch(err => {
+                console.log(err);
+                alert('Unable to create listing!');
+            });
     };
 
     return (

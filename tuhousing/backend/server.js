@@ -28,26 +28,32 @@ const createPool=mysql.createPool(
 //Listings section
 
 //create listing
-app.post("/createListing", async (req,res) => {
+app.post("/add-listing", async (req,res) => {
     try
     {
-        var city = req.query.city;
-        var street = req.query.street;
-        var zip = req.query.zip;
-        var propertyType = req.query.propertyType;
-        var squareFoot = req.query.squareFoot;
-        var beds = req.query.beds;
-        var baths = req.query.baths;
-        var rent = req.query.rent;
-        var utilities = req.query.utilities;
-        var maintFees = req.query.maintFees;
-        var terms = req.query.terms;
-        var availability = req.query.availability;
-        var parking = req.query.parking;
-        var laundry = req.query.laundry;
-        var internet = req.query.internet;
+        var name = req.body.name;
+        var contactInfo = req.body.contactInfo;
+        var city = req.body.propertyLocation.city;
+        var street = req.body.propertyLocation.street;
+        var zip = req.body.propertyLocation.zipCode;
+        var propertyType = req.body.propertyType;
+        var squareFoot = req.body.propertySize.squareFoot;
+        var beds = req.body.propertySize.bedrooms;
+        var baths = req.body.propertySize.bathrooms;
+        var rent = req.body.amount.rent;
+        var utilities = req.body.amount.utilities;
+        var maintFees = req.body.amount.maintenanceFees;
+        var terms = req.body.leaseTerms;
+        var availability = req.body.availability;
+        var parking = req.body.amenities.parking;
+        var laundry = req.body.amenities.laundry;
+        var internet = req.body.amenities.internet;
+        var utilIncluded = req.body.amenities.utilitiesIncluded;
+        var videos = req.body.videos;
+        var images = req.body.images;
 
-        var newListing = await createPool.query("INSERT INTO Listings VALUES (?)", 
+        var LandlordId = await createPool.query("SELECT ");
+        var newListing = await createPool.query("INSERT INTO Listings (City, Street, ZipCode, Property Type, squareFoot, beds, baths, rent, utilities, maintFees, terms, availability, parking, laundry, internet) VALUES (?)", 
             [city, street, zip, propertyType, squareFoot, beds, baths, rent, utilities, maintFees, terms, availability, parking, laundry, internet]);
 
         res.json("New listing was created.");
@@ -161,6 +167,8 @@ app.post("/signup", async (req,res) => {
         var proofOfOwnership= req.body.proofOfOwnership;
         var bankDetails= req.body.bankDetails;
         var housingRegistration= req.body.housingRegistration;
+        var studentId= req.body.studentId;
+        var landlordId = req.body.landlordId;
 
         console.log("Role "+role);
         console.log("Passing info "+fullName+username+email+password+contactInfo);
@@ -168,7 +176,11 @@ app.post("/signup", async (req,res) => {
         //var newAccount1 = await createPool.query("INSERT INTO Students (First_Name, PhoneNumber, UniversityID) VALUES ('"+fullName+"', "+contactInfo+", "+contactInfo+")");
         //var StudentID = await createPool.query("SELECT idStudents FROM Students WHERE UniversityID = '"+contactInfo+"'");
         //console.log("Passing info "+StudentID);
-
+        if(!studentId)
+            var newAccount = await createPool.query("INSERT INTO Users (Username, Passwordhash, Email, Phone, Role, studentID) VALUES ('"+username+"', '"+password+"', '"+email+"', "+contactInfo+", '"+role+"', '"+studentId+"')");
+        else if(!landlordId)
+            var newAccount = await createPool.query("INSERT INTO Users (Username, Passwordhash, Email, Phone, Role, landlordID) VALUES ('"+username+"', '"+password+"', '"+email+"', "+contactInfo+", '"+role+"', '"+landlordId+"')");
+        else
         var newAccount = await createPool.query("INSERT INTO Users (Username, Passwordhash, Email, Phone, Role) VALUES ('"+username+"', '"+password+"', '"+email+"', "+contactInfo+", '"+role+"')");
 
         res.json(newAccount);
@@ -181,12 +193,13 @@ app.post("/signup", async (req,res) => {
 });
 
 //login to account
-app.get("/loginpage", async (req,res) => {
+app.post("/login", async (req,res) => {
     try
     {
-        var username = req.query.username;
-        var password = req.query.password;
-        var newAccount = await createPool.query("SELECT * FROM Users WHERE ? in (username, password)", [username, password]);
+        var username = req.body.username;
+        var password = req.body.password;
+        console.log("U and P: "+username+" "+password);
+        var newAccount = await createPool.query("SELECT * FROM Users WHERE ? in (Username, Passwordhash)", [username, password]);
 
         //look into continued login/token
         res.json("User was logged in.");
