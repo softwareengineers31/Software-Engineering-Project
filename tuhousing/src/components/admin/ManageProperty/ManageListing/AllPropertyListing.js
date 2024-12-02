@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import axios from 'axios';
 
-const properties = [
+var properties = [
     {
         id: 1,
         title: "Beautiful Family Home",
@@ -31,6 +32,16 @@ const properties = [
 ];
 
 const PropertyListing = () => {
+    useEffect(() => {
+        axios.get("http://localhost:3000")
+        .then(res => {
+            console.log(res);
+            properties = res.data;
+        })
+        .catch(err => {
+            console.log(err);
+        });
+    });
     return (
         <div className="container mx-auto p-4">
             <h1 className="text-2xl font-bold mb-4">All Property Listings</h1>

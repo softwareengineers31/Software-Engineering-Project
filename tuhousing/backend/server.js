@@ -233,6 +233,20 @@ app.get("/roommates", async(req, res) =>{
     }
 });
 
+//get all listings(landlord)
+app.get("/allproperty-listing", async(req, res) =>{
+    try
+    {
+        var Listings = await createPool.query("SELECT * FROM Listings");
+        console.log(Listings);
+        res.json(Listings[0]);
+    }
+    catch(err)
+    {
+        console.error(err.message);
+    }
+});
+
 //get single roommate
 app.get("/roommates/:id", async(req, res) =>{
     try
