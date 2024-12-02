@@ -13,8 +13,6 @@ const SignupForm = () => {
         contactInfo: '',
         address: '',
         governmentId: [],
-        studentId: [],
-        landlordId: [],
         proofOfOwnership: [],
         bankDetails: '',
         housingRegistration: '',
@@ -31,6 +29,14 @@ const SignupForm = () => {
             [name]: files ? Array.from(files) : value,
         });
     };
+    const handleRoleChange = (e) => {
+        const { name, value, files } = e.target;
+        setFormData({
+            ...formData,
+            [name]: files ? Array.from(files) : value,
+        });
+        setRole(e.target.value);
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -38,7 +44,7 @@ const SignupForm = () => {
 
         localStorage.setItem('role', role);
 
-        axios.post('http://localhost:3000/signup', formData, role)
+        axios.post('http://localhost:3000/signup', formData)
         .then(res => {
             console.log(res);
             alert('Account created successfully. Please log in.');
@@ -60,7 +66,8 @@ const SignupForm = () => {
                     <span className="text-gray-700">User Role</span>
                     <select
                         name="role"
-                        onChange={(e) => setRole(e.target.value)}
+                        onChange={handleRoleChange}
+                        value={formData.role}
                         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
                         required
                     >

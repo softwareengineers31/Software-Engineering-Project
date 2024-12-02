@@ -24,13 +24,13 @@ const LoginForm = () => {
 
         if (credentials.username && credentials.password) {
 
-            const userRole = localStorage.getItem('role');
             localStorage.setItem('username', credentials.username)
 
             axios.post('http://localhost:3000/login', credentials)
             .then(res => {
                 console.log(res);
-                switch (userRole) {
+                localStorage.setItem('role', res.data);
+                switch (res.data) {
                     case 'Admin':
                         navigate('/admin-dashboard');
                         break;
