@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const HouseRegistrationModal = () => {
@@ -34,6 +35,8 @@ const HouseRegistrationModal = () => {
         videos: null,
     });
 
+    const navigate = useNavigate();
+
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
         if (name.includes('propertyLocation') || name.includes('propertySize') || name.includes('amount') || name.includes('amenities')) {
@@ -62,6 +65,8 @@ const HouseRegistrationModal = () => {
         axios.post('http://localhost:3000/add-listing', formData)
             .then(res => {
                 console.log(res);
+                navigate('/landlord-dashboard');
+                alert('New listing created!');
             })
             .catch(err => {
                 console.log(err);

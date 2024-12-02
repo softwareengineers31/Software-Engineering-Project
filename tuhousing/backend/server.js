@@ -57,8 +57,11 @@ app.post("/add-listing", async (req,res) => {
         var LandlordId = await createPool.query("SELECT landlordID FROM Users WHERE Username = ?",[username]);
         console.log(JSON.stringify(LandlordId[0][0].landlordID));
         var id = LandlordId[0][0].landlordID;
+        console.log(id);
         var newListing = await createPool.query("INSERT INTO Listings (City, Street, ZipCode, PropertyType, SqFootage, NumBedrooms, NumBathrooms, RentPrice, AvailabilityDate, HighSpeedInternetAccess, leaseterms, Landlord_idLandlord) VALUES ('"
-            +city+", '"+ street+"', "+ zip+", '"+ propertyType+"', "+ squareFoot+", "+ beds+", "+ baths+", "+ rent+", '"+ availability+"', '"+ internet+"', '"+ terms+"', '"+ id+"')");
+            +city+"', '"+ street+"', "+ zip+", '"+ propertyType+"', "+ squareFoot+", "+ beds+", "+ baths+", "+ rent+", '"+ availability+"', '"+ internet+"', '"+ terms+"', '"+ id+"')");
+        
+        //var newAccount = await createPool.query("INSERT INTO Users (Username, Passwordhash, Email, Phone, Role) VALUES ('"+username+"', '"+password+"', '"+email+"', "+contactInfo+", '"+role+"')");
 
         res.json("New listing was created.");
         console.log("New listing was created.");
@@ -146,7 +149,7 @@ app.delete("/:id", async(req, res) =>{
     {
         var {id} = req.params;
         var deleteListing = await createPool.query("DELETE FROM Listings WHERE idListings = ?", [id]);
-        res.json("Listing was deleted.")
+        res.json("Listing was deleted.");
     }
     catch(err)
     {
@@ -171,8 +174,7 @@ app.post("/signup", async (req,res) => {
         var proofOfOwnership= req.body.proofOfOwnership;
         var bankDetails= req.body.bankDetails;
         var housingRegistration= req.body.housingRegistration;
-        var studentId= req.body.studentId;
-        var landlordId = req.body.landlordId;
+        var id= req.body.id;
 
         console.log("Role "+role);
         console.log("Passing info "+fullName+username+email+password+contactInfo);
@@ -181,9 +183,9 @@ app.post("/signup", async (req,res) => {
         //var StudentID = await createPool.query("SELECT idStudents FROM Students WHERE UniversityID = '"+contactInfo+"'");
         //console.log("Passing info "+StudentID);
         if(role === 'Student')
-            var newAccount = await createPool.query("INSERT INTO Users (Username, Passwordhash, Email, Phone, Role, studentID) VALUES ('"+username+"', '"+password+"', '"+email+"', "+contactInfo+", '"+role+"', '"+studentId+"')");
+            var newAccount = await createPool.query("INSERT INTO Users (Username, Passwordhash, Email, Phone, Role, studentID) VALUES ('"+username+"', '"+password+"', '"+email+"', "+contactInfo+", '"+role+"', '"+id+"')");
         else if(role === 'Landlord')
-            var newAccount = await createPool.query("INSERT INTO Users (Username, Passwordhash, Email, Phone, Role, landlordID) VALUES ('"+username+"', '"+password+"', '"+email+"', "+contactInfo+", '"+role+"', '"+landlordId+"')");
+            var newAccount = await createPool.query("INSERT INTO Users (Username, Passwordhash, Email, Phone, Role, landlordID) VALUES ('"+username+"', '"+password+"', '"+email+"', "+contactInfo+", '"+role+"', '"+id+"')");
         else
             var newAccount = await createPool.query("INSERT INTO Users (Username, Passwordhash, Email, Phone, Role) VALUES ('"+username+"', '"+password+"', '"+email+"', "+contactInfo+", '"+role+"')");
 

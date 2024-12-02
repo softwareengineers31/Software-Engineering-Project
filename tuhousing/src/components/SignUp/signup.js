@@ -16,8 +16,7 @@ const SignupForm = () => {
         proofOfOwnership: [],
         bankDetails: '',
         housingRegistration: '',
-        studentId: '',
-        landlordId: ''
+        id: ''
     });
 
     const navigate = useNavigate();
@@ -150,6 +149,17 @@ const SignupForm = () => {
                         required
                     />
                 </label>
+                <label className="block">
+                    <span className="text-gray-700">ID Number</span>
+                    <input
+                        type="text"
+                        name="id"
+                        onChange={handleInputChange}
+                        value={formData.id}
+                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
+                        required
+                    />
+                </label>
 
                 {/* Government-Issued ID - Required for all roles */}
                 <label className="block">
@@ -173,27 +183,6 @@ const SignupForm = () => {
                         </div>
                     )}
                 </label>
-
-                {/* Conditional Fields for Student */}
-                {role === 'Student' && (
-                    <label className="block">
-                        <span className="text-gray-700">Student ID (scanned copy of student ID card)</span>
-                        <input type="file" name="studentId" onChange={handleInputChange}
-                               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm" multiple
-                                required/>
-                        {/* Display selected filenames */}
-                        {formData.studentId.length > 0 && (
-                            <div className="mt-1">
-                                {formData.studentId.map((file, index) => (
-                                    <span key={index} className="block text-gray-500 text-sm">
-                                        {file.name}
-                                    </span>
-                                ))}
-                            </div>
-                        )}
-                    </label>
-                )}
-
 
                 {/* Conditional Fields for Landlord */}
                 {role === 'Landlord' && (
@@ -247,18 +236,6 @@ const SignupForm = () => {
                                     ))}
                                 </div>
                             )}
-                        </label>
-
-                        <label className="block"> {/* <-- Added Text Field for Landlord */}
-                            <span className="text-gray-700">Landlord Info</span> 
-                            <input
-                                type="text"
-                                name="landlordInfo"
-                                onChange={handleInputChange}
-                                value={formData.landlordId}
-                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
-                                required
-                            />
                         </label>
                     </>
                 )}
