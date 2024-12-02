@@ -18,6 +18,7 @@ const SignupForm = () => {
         proofOfOwnership: [],
         bankDetails: '',
         housingRegistration: '',
+        landlordInfo: '', 
     });
 
     const navigate = useNavigate();
@@ -238,6 +239,18 @@ const SignupForm = () => {
                                     ))}
                                 </div>
                             )}
+                        </label>
+
+                        <label className="block"> {/* <-- Added Text Field for Landlord */}
+                            <span className="text-gray-700">Landlord Info</span> 
+                            <input
+                                type="text"
+                                name="landlordInfo"
+                                onChange={handleInputChange}
+                                value={formData.landlordInfo}
+                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
+                                required
+                            />
                         </label>
                     </>
                 )}
