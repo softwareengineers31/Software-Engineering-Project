@@ -13,8 +13,6 @@ const SignupForm = () => {
         contactInfo: '',
         address: '',
         governmentId: [],
-        studentId: [],
-        landlordId: [],
         proofOfOwnership: [],
         bankDetails: '',
         housingRegistration: '',
