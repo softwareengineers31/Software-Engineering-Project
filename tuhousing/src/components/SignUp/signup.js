@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const SignupForm = () => {
     const [role, setRole] = useState('');
     const [formData, setFormData] = useState({
+        role: '',
         fullName: '',
         username: '',
         email: '',
@@ -32,9 +34,16 @@ const SignupForm = () => {
 
         localStorage.setItem('role', role);
 
-
-        alert('Account created successfully. Please log in.');
-        navigate('/login');
+        axios.post('http://localhost:3000/signup', formData)
+        .then(res => {
+            console.log(res);
+            alert('Account created successfully. Please log in.');
+            navigate('/login');
+        })
+        .catch(err => {
+            console.log(err);
+            alert('Unable to create account!');
+        });
     };
 
     return (

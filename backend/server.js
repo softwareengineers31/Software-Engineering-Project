@@ -108,21 +108,21 @@ app.get("/:value", async(req, res) =>{
 app.put("/:id", async(req, res) =>{
     try
     {
-        var city = req.query.city;
-        var street = req.query.street;
-        var zip = req.query.zip;
-        var propertyType = req.query.propertyType;
-        var squareFoot = req.query.squareFoot;
-        var beds = req.query.beds;
-        var baths = req.query.baths;
-        var rent = req.query.rent;
-        var utilities = req.query.utilities;
-        var maintFees = req.query.maintFees;
-        var terms = req.query.terms;
-        var availability = req.query.availability;
-        var parking = req.query.parking;
-        var laundry = req.query.laundry;
-        var internet = req.query.internet;
+        var city = req.body.city;
+        var street = req.body.street;
+        var zip = req.body.zip;
+        var propertyType = req.body.propertyType;
+        var squareFoot = req.body.squareFoot;
+        var beds = req.body.beds;
+        var baths = req.body.baths;
+        var rent = req.body.rent;
+        var utilities = req.body.utilities;
+        var maintFees = req.body.maintFees;
+        var terms = req.body.terms;
+        var availability = req.body.availability;
+        var parking = req.body.parking;
+        var laundry = req.body.laundry;
+        var internet = req.body.internet;
 
         var newListing = await createPool.query("INSERT INTO Listings VALUES (?)", 
             [city, street, zip, propertyType, squareFoot, beds, baths, rent, utilities, maintFees, terms, availability, parking, laundry, internet]);
@@ -154,11 +154,26 @@ app.delete("/:id", async(req, res) =>{
 app.post("/signup", async (req,res) => {
     try
     {
-        var username = req.query.username;
-        var password = req.query.password;
-        var email = req.query.email;
-        var phone = req.query.phone;
-        var newAccount = await createPool.query("INSERT INTO Users VALUES (?)", [username, password, email, phone]);
+        var role = req.body.role;
+        var fullName = req.body.fullName;
+        var username= req.body.username;
+        var email= req.body.email;
+        var password= req.body.password;
+        var contactInfo= req.body.contactInfo;
+        var address= req.body.address;
+        var governmentId= req.body.governmentId;
+        var proofOfOwnership= req.body.proofOfOwnership;
+        var bankDetails= req.body.bankDetails;
+        var housingRegistration= req.body.housingRegistration;
+
+        console.log("Role "+role);
+        console.log("Passing info "+fullName+username+email+password+contactInfo);
+
+        //var newAccount1 = await createPool.query("INSERT INTO Students (First_Name, PhoneNumber, UniversityID) VALUES ('"+fullName+"', "+contactInfo+", "+contactInfo+")");
+        //var StudentID = await createPool.query("SELECT idStudents FROM Students WHERE UniversityID = '"+contactInfo+"'");
+        //console.log("Passing info "+StudentID);
+
+        var newAccount = await createPool.query("INSERT INTO Users (Username, Passwordhash, Email, Phone, Role) VALUES ('"+username+"', '"+password+"', '"+email+"', "+contactInfo+", '"+role+"')");
 
         res.json(newAccount);
         console.log("Account created.")
