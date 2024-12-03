@@ -55,9 +55,9 @@ app.post("/add-listing", async (req,res) => {
         var images = req.body.images;
 
         var LandlordId = await createPool.query("SELECT landlordID FROM Users WHERE Username = ?",[username]);
-        console.log(JSON.stringify(LandlordId[0][0].landlordID));
+        //console.log(JSON.stringify(LandlordId[0][0].landlordID));
         var id = LandlordId[0][0].landlordID;
-        console.log(id);
+        //console.log(id);
         var newListing = await createPool.query("INSERT INTO Listings (City, Street, ZipCode, PropertyType, SqFootage, NumBedrooms, NumBathrooms, RentPrice, AvailabilityDate, HighSpeedInternetAccess, leaseterms, Landlord_idLandlord) VALUES ('"
             +city+"', '"+ street+"', "+ zip+", '"+ propertyType+"', "+ squareFoot+", "+ beds+", "+ baths+", "+ rent+", '"+ availability+"', '"+ internet+"', '"+ terms+"', '"+ id+"')");
         

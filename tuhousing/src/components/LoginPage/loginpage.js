@@ -25,7 +25,7 @@ const LoginForm = () => {
         if (credentials.username && credentials.password) {
 
             localStorage.setItem('username', credentials.username)
-
+            //api that takes entered username and password and compares it to db values. Allows login if correct
             axios.post('http://localhost:3000/login', credentials)
             .then(res => {
                 console.log(res);

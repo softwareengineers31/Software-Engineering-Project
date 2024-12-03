@@ -61,7 +61,7 @@ const HouseRegistrationModal = () => {
         console.log(formData);
         var username = localStorage.getItem('username');
         formData.username = username;
-        // Here you would typically handle the submission (e.g., send to an API)
+        // API that sends data from UI to create a list
         axios.post('http://localhost:3000/add-listing', formData)
             .then(res => {
                 console.log(res);

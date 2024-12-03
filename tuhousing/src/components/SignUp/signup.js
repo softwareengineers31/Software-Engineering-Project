@@ -42,7 +42,7 @@ const SignupForm = () => {
 
 
         localStorage.setItem('role', role);
-
+        //API that sends data to create an account
         axios.post('http://localhost:3000/signup', formData)
         .then(res => {
             console.log(res);

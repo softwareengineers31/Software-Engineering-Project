@@ -30,7 +30,7 @@ var properties = [
         image: "https://via.placeholder.com/300"
     },
 ];
-
+//Gets all properties in db
 const PropertyListing = () => {
     useEffect(() => {
         axios.get("http://localhost:3000")
